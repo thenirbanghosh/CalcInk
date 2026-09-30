@@ -1,0 +1,9 @@
+{
+  "model": "breezedeus/pix2text-mfr (TrOCR, encoder 87.5 MB + decoder 30.1 MB ONNX, MIT)",
+  "set": "held-out real MathWriting arithmetic expressions (same 218 as results-heldout.json)",
+  "exact": 0.197,
+  "p50_ms_per_expression_cpu": 134,
+  "p95_ms_per_expression_cpu": 181,
+  "subset_len_ge_4": { "n": 91, "pix2text_exact": 0.429, "calcink_exact": 0.473 },
+  "notes": "Open-vocabulary LaTeX output hallucinates symbols outside arithmetic on short inputs (e.g. '3' -> \\smile, '0' -> \\circlearrowright). Timing: onnxruntime (native, Apple silicon), greedy decoding without KV cache."
+}
