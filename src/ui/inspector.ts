@@ -107,7 +107,7 @@ export class Inspector {
       const frac = verdict.display.fraction;
       result = `${plainNumber(verdict.display)}${frac ? `<small>= ${frac.replace('-', '−')}</small>` : ''}`;
     } else if (verdict.kind === 'check') {
-      result = verdict.correct ? `✓ <small>Your answer is right</small>` : `${plainNumber(verdict.display)}<small>not ${plainNumber(verdict.claimed)}</small>`;
+      result = verdict.correct ? `Correct <small>your answer is right</small>` : `${plainNumber(verdict.display)}<small>not ${plainNumber(verdict.claimed)}</small>`;
     } else if (verdict.kind === 'undefined') {
       result = `Undefined <small>division by zero</small>`;
     } else if (verdict.kind === 'error') {

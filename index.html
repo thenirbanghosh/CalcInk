@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
     <title>CalcInk</title>
     <script>
-      // Apply the theme before first paint (no flash of the wrong paper).
+      // set the theme before first paint so there's no white flash
       try {
         const s = JSON.parse(localStorage.getItem('calcink.settings') || '{}');
         const t = s.theme === 'light' || s.theme === 'dark' ? s.theme : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';

@@ -2,7 +2,7 @@
   "name": "calcink",
   "version": "1.0.0",
   "private": true,
-  "description": "On-device handwritten math calculator: write an equation, get the answer inked next to it. 100% client-side, offline-first.",
+  "description": "Handwritten math calculator that runs in the browser and works offline",
   "type": "module",
   "license": "MIT",
   "scripts": {

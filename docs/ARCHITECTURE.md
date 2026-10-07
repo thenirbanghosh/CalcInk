@@ -160,7 +160,7 @@ score = sum over symbols of [ log P(label | image) + log P(strokes belong togeth
       + grammar cost
 ```
 
-Groups are contiguous in left-to-right order, so this is a Viterbi pass over (strokes consumed, grammar state). The grammar is a small state machine for `expr [= [expr]]` where `expr = [±] number (op [±] number)*`. It's soft: an invalid step costs log(1e-4), so messy input still decodes to something, but a valid reading wins when the ink is ambiguous.
+Groups are contiguous in left-to-right order, so this is a Viterbi pass over (strokes consumed, grammar state). The grammar is a small state machine for `expr [= [expr]]` where `expr = [sign] number (op [sign] number)*`. It's soft: an invalid step costs log(1e-4), so messy input still decodes to something, but a valid reading wins when the ink is ambiguous.
 
 One special case: `=` right after an operator only costs log(0.05). That's what a line looks like right after you erase a digit. Without it the decoder turned `14 + =` into `14 - 1 = 13` and showed a wrong answer while editing.
 
@@ -188,7 +188,7 @@ Typical timing in headless Chrome: models load in about 0.3-0.5 s, a new 11-stro
 ## Math (`src/math`)
 
 - `rational.ts`: exact fractions with BigInt, so `0.1 + 0.2` is exactly `0.3`.
-- `parser.ts`: recursive descent. `expr := term (± term)*`, `term := unary (×÷ unary)*`, `unary := ± unary | number`. That gives BODMAS and left-to-right order, and unary minus handles negatives like `5 × -2`.
+- `parser.ts`: recursive descent. `expr := term ((+|-) term)*`, `term := unary ((×|÷) unary)*`, `unary := (+|-) unary | number`. That gives BODMAS and left-to-right order, and unary minus handles negatives like `5 × -2`.
 - `evaluate.ts`: returns `incomplete` (no `=`), `value`, `check` (the user wrote an answer after `=`), `undefined` (division by zero) or `error` (with the position of the bad symbol).
 - `format.ts`: long division with a map of remainders to find repeating parts (`1/7 = 0.(142857)`), rounding with an ellipsis for long periods, scientific notation for huge or tiny values, and an exact fraction for fraction mode.
 

@@ -184,7 +184,7 @@ describe('geometry priors', () => {
   });
 });
 
-describe('robustness', () => {
+describe('random input', () => {
   it('never throws on random scribbles', async () => {
     let seed = 1;
     const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);

@@ -9,7 +9,7 @@ import { boundsOf, distSqSegmentSegment, segmentsIntersect } from '../src/core/g
 import { curve, line, makeStroke, toPts } from './helpers';
 
 describe('coordinate conversion', () => {
-  it('world ↔ screen round-trips under any pan/zoom', () => {
+  it('world to screen and back gives the same point for any pan/zoom', () => {
     fc.assert(
       fc.property(
         fc.double({ min: -5000, max: 5000, noNaN: true }),
