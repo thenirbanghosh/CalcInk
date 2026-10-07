@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="description" content="Handwritten math calculator. Write a sum by hand and the answer shows up next to it. Runs on your device and works offline." />
+    <meta name="theme-color" content="#fbf8f1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1b1e23" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <title>CalcInk</title>
+    <script>
+      // Apply the theme before first paint (no flash of the wrong paper).
+      try {
+        const s = JSON.parse(localStorage.getItem('calcink.settings') || '{}');
+        const t = s.theme === 'light' || s.theme === 'dark' ? s.theme : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = t;
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div id="paper" class="paper" data-style="dots"></div>
+      <div id="stage" data-tool="pen" aria-label="Notebook page. Write an equation ending in an equals sign." role="application"></div>
+
+      <header class="topbar">
+        <div class="brand"><svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="15" fill="currentColor"/><path d="M18 40c4 0 5-3 6-8s2-13 8-13c3 0 4 2 4 4" fill="none" stroke="var(--paper)" stroke-width="4.2" stroke-linecap="round"/><path d="M24 29h9" stroke="var(--paper)" stroke-width="4.2" stroke-linecap="round"/><path d="M38 35h10M38 42h10" stroke="var(--answer)" stroke-width="4.2" stroke-linecap="round"/></svg>CalcInk</div>
+        <div id="status" class="status glass" data-state="loading" title="Recognition runs on this device">
+          <span class="status-dot"></span><span class="status-label">Loading model...</span>
+        </div>
+      </header>
+
+      <nav id="toolbar" class="toolbar glass" aria-label="Tools"></nav>
+
+      <section id="empty" class="empty" aria-live="polite">
+        <div class="empty-hand">18 + 4 × 3 = <b>30</b></div>
+        <p class="empty-sub">Write a sum and end it with =, the answer shows up next to it.</p>
+        <button id="demo" class="btn btn-primary" type="button">
+          <svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" /></svg>
+          Try an example
+        </button>
+      </section>
+
+      <div class="bottombar">
+        <button id="zoom" class="pill glass" type="button" title="Reset view">100%</button>
+        <div class="hint">Scribble over ink to erase, hold <kbd>Space</kbd> to pan, <kbd>?</kbd> for help</div>
+      </div>
+
+      <aside id="hud" class="hud glass" hidden aria-label="Performance"></aside>
+      <div id="toast" class="toast" role="status"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
