@@ -143,6 +143,8 @@ export class App {
     $('#zoom').addEventListener('click', () => this.resetView());
     $('#demo').addEventListener('click', () => void this.demo());
     matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => this.applyTheme());
+    // read the colors again once the stylesheet is definitely loaded
+    window.addEventListener('load', () => this.applyTheme());
     primeAudio();
 
     void document.fonts.load(`48px Caveat`).then(() => {
